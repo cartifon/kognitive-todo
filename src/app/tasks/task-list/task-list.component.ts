@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../user/services/user.service';
+import { shareReplay } from 'rxjs/operators';
 import { TaskEntity } from '../../user/services/task.entity';
+import { UserService } from '../../user/services/user.service';
 
 @Component({
   selector: 'app-task-list',
@@ -9,7 +10,9 @@ import { TaskEntity } from '../../user/services/task.entity';
 })
 export class TaskListComponent implements OnInit {
 
-  taskList$ = this.userService.getTaskList();
+  taskList$ = this.userService.getTaskList().pipe(
+    shareReplay(1)
+  );
 
   filteredList: any[];
 

@@ -1,16 +1,7 @@
-<div class="title">
-  <h3>Kognitive</h3>
-</div>
 <div class="task-list-container" *ngIf="taskList$ | async as taskList">
   <ng-container *ngFor="let task of filteredList">
 
     <pre>{{ task | json }}</pre>
 
   </ng-container>
-</div>
-<div class="footer">
-  <span>test1</span>
-  <span>test2</span>
-  <span>test3</span>
-  <span>test4</span>
 </div>
