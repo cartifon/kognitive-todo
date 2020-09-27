@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
       console.log(error);
     });
 
-    this.router.navigate(['tasks-list']);
+    this.router.navigate(['tasks/tasks-list']);
   }
 
 }

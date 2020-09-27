@@ -10,6 +10,7 @@ export interface TaskEntity {
   status: Status;
   attr: {
     title: string;
+    description: string;
     body: string;
     label: string[];
     priority: Priority;
@@ -20,5 +21,5 @@ export interface TaskEntity {
 
   };
 }
-export type Priority = 'High' | 'Low';
-export type Status = 'Done' | 'Pending';
+export type Priority = 'High' | 'Medium' | 'Low';
+export type Status = 'Done' | 'Pending' | 'Dismissed';

@@ -1,7 +1,19 @@
-<div class="task-list-container" *ngIf="taskList$ | async as taskList">
-  <ng-container *ngFor="let task of filteredList">
-
-    <pre>{{ task | json }}</pre>
-
+<div class="task-list-container" *ngIf="taskListForOwnerSelected$ | async as taskList">
+  <ng-container *ngFor="let task of taskList">
+    <div class="card" style="width: 100%;">
+      <div class="card-body">
+        <div class="form-group form-check">
+          <h5 class="card-title" (click)="finishTask(task)">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" [checked]="task.status === 'Done'">
+            {{getInfo(task)}} <span class="badge" [ngClass]="{
+              'badge-danger': task.attr.priority === 'High',
+              'badge-warning': task.attr.priority === 'Medium',
+              'badge-secondary': task.attr.priority === 'Low'
+            }">{{task.attr.priority}}</span>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">Due date: {{ task.due_dt | date: 'MMMM d, yyy'}}</h6>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
-import { TaskEntity } from '../../user/services/task.entity';
-import { UserService } from '../../user/services/user.service';
+import { combineLatest } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { TaskService } from '../services/task.service';
+import { TaskEntity } from '../task.entity';
 
 @Component({
   selector: 'app-task-list',
@@ -10,20 +11,35 @@ import { UserService } from '../../user/services/user.service';
 })
 export class TaskListComponent implements OnInit {
 
-  taskList$ = this.userService.getTaskList().pipe(
-    shareReplay(1)
-  );
+  taskList$ = this.taskService.taskList$;
+  selectedOwner$ = this.taskService.selectedOwner$;
 
-  filteredList: any[];
+  taskListForOwnerSelected$ = combineLatest([
+    this.taskList$,
+    this.selectedOwner$
+  ])
+    .pipe(
+      map(([taskList, ownerSelected]) =>
+        taskList.data.filter(task => ownerSelected ? task.owner === ownerSelected : true)
+      ),
+      shareReplay(1)
+    );
 
-  constructor(private userService: UserService) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.taskList$.subscribe(taskList => {
-      this.filteredList = taskList.data.filter((task: TaskEntity) => {
-        return task.owner === '1338';
-      });
-    });
+  }
+
+  finishTask(task: TaskEntity): void {
+    if (task.status === 'Done') {
+      task.status = 'Pending';
+    } else {
+      task.status = 'Done';
+    }
+  }
+
+  getInfo(task: TaskEntity): string {
+    return task.attr.title || task.attr.body || task.attr.description;
   }
 
 }

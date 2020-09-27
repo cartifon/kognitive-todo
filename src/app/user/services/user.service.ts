@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { TaskEntity } from './task.entity';
+import { TaskEntity } from '../../tasks/task.entity';
 
 @Injectable({
   providedIn: 'root'
