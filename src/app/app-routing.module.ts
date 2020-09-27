@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'tasks',
+    path: 'tasks-list',
     component: TaskListComponent
   }
 ];
