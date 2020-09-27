@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: `https://staging-core-optimy.com/api/v1/`,
+  apptoken: 'r0MrA268ORAobX53qkoaohaA7g9ek3JJ',
+  tenantid: 3
 };
 
 /*
